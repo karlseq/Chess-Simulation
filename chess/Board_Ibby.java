@@ -2,9 +2,9 @@ package chess;
 
 import java.util.Arrays;
 
-public class Board {
+public class Board_Ibby {
 	
-	public static String[][] getBlankBoard(){
+	private static String[][] getBlankBoard(){
 		
 		String[][] board = new String[9][9];
 		for(String[] row : board) {
@@ -33,6 +33,10 @@ public class Board {
 
 		return board;
 		
+	}
+	
+	public static void getBoard() {
+		//String[][] board = getBlankBoard();
 	}
 	
 	public static void printBoard(String[][] board) {
