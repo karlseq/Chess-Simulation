@@ -25,14 +25,12 @@ public class Board {
 				}
 			}
 			board[i][8] = Integer.toString(8-i);
+			
+			int letter = 'a';
+			board[8][i]=  " " + Character.toString((char)(letter + i)) + " ";
+			
 		}
-		
-		
-		int letter = 'a';
-		for(int i = 0; i < 8; i++) {
-			board[8][i] = " " + Character.toString((char)(letter + i)) + " ";
-		}
-		
+
 		return board;
 		
 	}
@@ -44,6 +42,11 @@ public class Board {
 			}
 			System.out.println();
 		}
+	}
+	
+	public static void main(String[] args) {
+		String[][] board = getBlankBoard();
+		printBoard(board);
 	}
 
 }
