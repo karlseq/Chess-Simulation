@@ -1,10 +1,11 @@
 package pieces;
 
 public abstract class ChessPiece {
-	String name; // name of the piece as shown on the board (e.g. "wp" for white pawn)
+	 
+	Colors color; // name of the piece as shown on the board (e.g. "wp" for white pawn)
 	
-	public ChessPiece(String name) {
-		this.name = name;
+	public ChessPiece(Colors c) {
+		this.color = c;
 	}
 	
 	// the move() method will be implemented by each unique piece
@@ -14,6 +15,11 @@ public abstract class ChessPiece {
 	// public abstract void move(int srcRow,int srcCol,int destRow,int destCol);
 	
 	public String toString() {
-		return this.name;
+		if(color.equals(Colors.BLACK)) {
+			return "b";
+		}
+		return "w";
 	}
+	
+	public abstract boolean isValidMove();
 }

@@ -9,29 +9,31 @@ public class Board {
 	
 	public void makeBoard() {
 		//adds black pieces to board
-		board[0][0] = new Rook("bR");
-		board[0][1] = new Knight("bN");
-		board[0][2] = new Bishop("bB");
-		board[0][3] = new Queen("bQ");
-		board[0][4] = new King("bK");
-		board[0][5] = new Bishop("bB");
-		board[0][6] = new Knight("bN");
-		board[0][7] = new Rook("bR");
+		Colors black = Colors.BLACK;
+		board[0][0] = new Rook(black);
+		board[0][1] = new Knight(black);
+		board[0][2] = new Bishop(black);
+		board[0][3] = new Queen(black);
+		board[0][4] = new King(black);
+		board[0][5] = new Bishop(black);
+		board[0][6] = new Knight(black);
+		board[0][7] = new Rook(black);
 		for (int col=0; col<8; col++) {
-			board[1][col] = new Pawn("bp");
+			board[1][col] = new Pawn(black);
 		}
 		
 		//adds white pieces to board
-		board[7][0] = new Rook("wR");
-		board[7][1] = new Knight("wN");
-		board[7][2] = new Bishop("wB");
-		board[7][3] = new Queen("wQ");
-		board[7][4] = new King("wK");
-		board[7][5] = new Bishop("wB");
-		board[7][6] = new Knight("wN");
-		board[7][7] = new Rook("wR");
+		Colors white = Colors.WHITE;
+		board[7][0] = new Rook(white);
+		board[7][1] = new Knight(white);
+		board[7][2] = new Bishop(white);
+		board[7][3] = new Queen(white);
+		board[7][4] = new King(white);
+		board[7][5] = new Bishop(white);
+		board[7][6] = new Knight(white);
+		board[7][7] = new Rook(white);
 		for (int col=0; col<8; col++) {
-			board[6][col] = new Pawn("wp");
+			board[6][col] = new Pawn(white);
 		}
 	}
 	
