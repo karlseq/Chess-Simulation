@@ -2,7 +2,7 @@ package pieces;
 
 import chess.Board;
 
-public class Rook extends ChessPiece {
+public class Rook extends ChessPiece implements ForwardMover {
 	public Rook(Colors color) {
 		super(color);
 	}
@@ -16,6 +16,6 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
-		return false;
+		return checkLine(c1, cp2, c2, cp2, chessBoard);
 	}
 }

@@ -51,6 +51,7 @@ public class Board {
 		board[5][1] = new King(white);
 		board[5][7] = new Knight(white);
 		board[7][6] = null;
+		board[5][3] = new Queen(white);
 		
 	}
 	
