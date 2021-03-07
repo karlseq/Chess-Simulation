@@ -16,7 +16,6 @@ public class Rook extends ChessPiece {
 
 	@Override
 	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

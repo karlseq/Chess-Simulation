@@ -18,7 +18,6 @@ public class Queen extends ChessPiece implements DiagonalMover{
 
 	@Override
 	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
-		// TODO Auto-generated method stub
-		return false;
+		return checkDiagonal(c1, cp2, c2, cp2, chessBoard);
 	}
 }

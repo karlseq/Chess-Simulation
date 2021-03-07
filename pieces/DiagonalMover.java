@@ -17,7 +17,7 @@ public interface DiagonalMover {
 		else if(cp2!=null && cp1.color.equals(cp2.color)) { //check that cp2 is not the same color as cp1
 			return false;
 		}
-		else if(cp1.equals(cp2)){ //cp1 is same as cp2
+		else if(cp2!= null && cp1.equals(cp2)){ //cp1 is same as cp2
 			return false;
 		}
 		else if (!DiagonalIsEmpty(c1[0], c1[1], c2[0], c2[1], cp2, chessBoard)){
