@@ -1,5 +1,7 @@
 package pieces;
 
+import chess.Board;
+
 public abstract class ChessPiece {
 	 
 	Colors color; // name of the piece as shown on the board (e.g. "wp" for white pawn)
@@ -21,5 +23,5 @@ public abstract class ChessPiece {
 		return "w";
 	}
 	
-	public abstract boolean isValidMove();
+	public abstract boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard);
 }

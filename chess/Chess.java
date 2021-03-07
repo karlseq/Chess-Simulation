@@ -54,24 +54,26 @@ public class Chess {
 			
 			/* DRAW */
 			else if(move.contains("draw?")) draw = true;
-			
+			else if(move.contains("pass")) continue;
 			/* regular move / promotion */
 			else {
 				
-				String source_block = move.substring(0, 2);
-				String dest_block = move.substring(3);
+				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
+				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
+				
 				if(move.length() == 7) {
 					//handle promotion
 					//ex: g7 g8 N
-					char promotion_piece = move.charAt(6);
-					
+					//char promotion_piece = move.charAt(6);
 				}
 				
-				ChessPiece source_piece = Utility.getChessPiece(source_block, chessBoard);
-				ChessPiece dest_piece = Utility.getChessPiece(dest_block, chessBoard);
-				
+				ChessPiece source_piece = chessBoard.board[source_coordinates[0]][source_coordinates[1]];
+				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 
 				
+				boolean result = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
+				System.out.println(result);
+					
 			}
 			
 			System.out.println();

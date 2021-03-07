@@ -22,6 +22,13 @@ public class Board {
 			board[1][col] = new Pawn(black);
 		}
 		
+		/* TEMP CHANGE */
+		board[1][3] = null;
+		board[1][1] = null;
+		board[2][4] = board[0][2];
+		board[0][2] = null;
+		
+		
 		//adds white pieces to board
 		Colors white = Colors.WHITE;
 		board[7][0] = new Rook(white);
@@ -35,6 +42,14 @@ public class Board {
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
+		
+		/* TEMP CHANGE */
+		board[6][4] = null;
+		board[6][6] = null;
+		board[7][5] = null;
+		board[5][3] = new Bishop(white);
+		board[5][1] = new King(white);
+		
 	}
 	
 	public void drawBoard() {
@@ -75,6 +90,10 @@ public class Board {
 		System.out.println();
 		System.out.println();
  	}
+	
+	public ChessPiece[][] getBoard() {
+		return this.board;
+	}
 	
 
 }
