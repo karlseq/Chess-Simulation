@@ -5,6 +5,7 @@ import chess.Board;
 public abstract class ChessPiece {
 	 
 	Colors color; // name of the piece as shown on the board (e.g. "wp" for white pawn)
+	boolean isFirstMove = true; //only for King and Rook
 	
 	public ChessPiece(Colors c) {
 		this.color = c;
@@ -24,4 +25,5 @@ public abstract class ChessPiece {
 	}
 	
 	public abstract boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard);
+	public abstract void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard);
 }

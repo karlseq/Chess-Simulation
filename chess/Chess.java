@@ -1,6 +1,7 @@
 package chess;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -38,6 +39,8 @@ public class Chess {
 			
 			String move = reader.readLine();
 			
+			if (draw) break; //end the game
+			
 			/* Possible Inputs
 			 * 1) resign (opposite player wins)
 			 * 2) move contains "draw?". Allow next player to type input (whatever it may be), and game ends
@@ -58,6 +61,7 @@ public class Chess {
 			
 			/* DRAW */
 			else if(move.contains("draw?")) draw = true;
+			//what is pass for?
 			else if(move.contains("pass")) continue;
 			/* regular move / promotion */
 			else {
@@ -76,11 +80,21 @@ public class Chess {
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 
 				
+<<<<<<< HEAD
 				boolean isValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
 				//if it's valid, check if moving it puts the player's king in check
 				if(isValid) {
 					if(whiteMove) {
 					}
+=======
+				boolean result = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
+				if (result) {
+					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
+				}
+				else {
+					System.out.println("Illegal move, try again");
+					whiteMove = !whiteMove;
+>>>>>>> 206c8275596a54151e87963f6e7f4d5bdeda4b52
 				}
 					
 			}

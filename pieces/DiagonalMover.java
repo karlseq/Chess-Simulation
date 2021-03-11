@@ -8,6 +8,8 @@ public interface DiagonalMover {
 		//for it to be valid, it has to be on the bishop's diagonal
 		//calculate difference of rows
 		
+		if (!isInBoard(c1[0],c1[1],c2[0],c2[1])) return false; //makes sure the move is within the bounds of the board
+		
 		//METHOD THAT CHECKS DIAGONAL
 		int run = Math.abs(c2[1] - c1[1]), rise = run;
 		
@@ -19,6 +21,14 @@ public interface DiagonalMover {
 		}
 		
 		return DiagonalIsEmpty(c1[0], c1[1], c2[0], c2[1], cp2, chessBoard);
+	}
+	
+	//checks if any of the row, col indices are out of the bounds of the board
+	private boolean isInBoard(int c1x, int c1y, int c2x, int c2y) {
+		if ((c1x<0||c1x>7) || (c1y<0||c1y>7) || (c2x<0||c2x>7) || (c2y<0||c2y>7)) {
+			return false;
+		}
+		return true;
 	}
 	
 	private boolean DiagonalIsEmpty(int c1y, int c1x, int c2y, int c2x, ChessPiece cp2, Board board) {
