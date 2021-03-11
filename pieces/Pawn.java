@@ -19,4 +19,9 @@ public class Pawn extends ChessPiece {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard) {
+		
+	}
 }
