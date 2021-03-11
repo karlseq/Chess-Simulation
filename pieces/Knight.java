@@ -24,7 +24,7 @@ public class Knight extends ChessPiece {
 		
 		int run = Math.abs(c1[1] - c2[1]), rise = Math.abs(c1[0] - c2[0]);
 		
-		boolean sideways_L = run == 2 && rise == 1, regular_L = run == 1 && rise == 2;
+		boolean sideways_L = (run == 2 && rise == 1), regular_L = (run == 1 && rise == 2);
 		
 		if(!sideways_L && !regular_L) return false;
 		else if(cp2!=null && cp2.color.equals(cp1.color)) return false;

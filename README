@@ -1,1 +1,10 @@
-yo
+Things we have to work on:
+
+-pawn
+-king
+-castling
+-promotion
+-kill method
+-is your king in check?
+-is the other king in check?
+-if it's check, is it check-mate?

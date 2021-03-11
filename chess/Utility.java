@@ -1,5 +1,6 @@
 package chess;
 
+import pieces.King;
 
 public class Utility {
 	
@@ -10,4 +11,5 @@ public class Utility {
 		int col = block.charAt(0) - 97;
 		return new int[] {row,col};
 	}
+	
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import pieces.ChessPiece;
+import pieces.King;
 
 public class Chess {
 
@@ -12,12 +13,15 @@ public class Chess {
 		// TODO Auto-generated method stub
 		Board chessBoard = new Board();
 		chessBoard.makeBoard();
-		
+				
 		Boolean game = true, whiteMove = true, draw = false;
 		
 		
 		//read input from user
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
+		King blackKing = (King) chessBoard.board[0][4];
+		King whiteKing = (King) chessBoard.board[7][4];
 		
 		while(game) {
 			
@@ -61,6 +65,7 @@ public class Chess {
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
 				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
 				
+				//this is promotion
 				if(move.length() == 7) {
 					//handle promotion
 					//ex: g7 g8 N
@@ -71,8 +76,12 @@ public class Chess {
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 
 				
-				boolean result = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
-				System.out.println(result);
+				boolean isValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
+				//if it's valid, check if moving it puts the player's king in check
+				if(isValid) {
+					if(whiteMove) {
+					}
+				}
 					
 			}
 			
