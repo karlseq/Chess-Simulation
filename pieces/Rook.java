@@ -16,7 +16,7 @@ public class Rook extends ChessPiece implements ForwardMover {
 
 
 	@Override
-	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
+	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
 		return checkLine(c1, cp2, c2, cp2, chessBoard);
 	}
 	

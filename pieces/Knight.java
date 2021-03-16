@@ -15,7 +15,7 @@ public class Knight extends ChessPiece {
 	}
 
 	@Override
-	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
+	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
 		/*what constitutes a valid move?
 		 * two options:
 		 * 	1) regular L (flipped / backwards)

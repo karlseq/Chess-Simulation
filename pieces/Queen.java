@@ -17,7 +17,7 @@ public class Queen extends ChessPiece implements DiagonalMover, ForwardMover{
 
 
 	@Override
-	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
+	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
 		if (!isInBoard(c1[0],c1[1],c2[0],c2[1])) return false; //makes sure the move is within the bounds of the board
 		return checkDiagonal(c1, cp2, c2, cp2, chessBoard) ? true : checkLine(c1, cp2, c2, cp2, chessBoard);
 	}

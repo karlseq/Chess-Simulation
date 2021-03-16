@@ -62,27 +62,7 @@ public class Chess {
 			/* regular move / promotion */
 			else {
 				
-				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
-				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
 				
-				if(move.length() == 7) {
-					//handle promotion
-					//ex: g7 g8 N
-					//char promotion_piece = move.charAt(6);
-				}
-				
-				ChessPiece source_piece = chessBoard.board[source_coordinates[0]][source_coordinates[1]];
-				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
-
-				
-				boolean result = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
-				if (result) {
-					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
-				}
-				else {
-					System.out.println("Illegal move, try again");
-					whiteMove = !whiteMove;
-				}
 					
 			}
 			
