@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import pieces.ChessPiece;
+import pieces.Colors;
 import pieces.King;
 
 public class Chess {
@@ -24,8 +25,11 @@ public class Chess {
 		King blackKing = (King) chessBoard.board[0][4];
 		King whiteKing = (King) chessBoard.board[7][4];
 		
+		int[] blackKing_coordinates = {0, 4};
+		int[] whiteKing_coordinates = {7, 4};
+		
+		
 		while(game) {
-			
 			if(draw) game = false; else chessBoard.drawBoard();
 			
 			if(whiteMove) {
@@ -62,7 +66,7 @@ public class Chess {
 			/* DRAW */
 			else if(move.contains("draw?")) draw = true;
 			//what is pass for?
-			else if(move.contains("pass")) continue;
+			else if(move.contains("pass")) continue;  //TAKE OUT LATER
 			/* regular move / promotion */
 			else {
 				
@@ -80,21 +84,58 @@ public class Chess {
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 
 				
-<<<<<<< HEAD
 				boolean isValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
-				//if it's valid, check if moving it puts the player's king in check
-				if(isValid) {
-					if(whiteMove) {
-					}
-=======
-				boolean result = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
-				if (result) {
+				if (isValid) {
 					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
+					
+					//if the source piece was a king, you have to update whiteKing or blackKing references
+					if(source_piece instanceof King) {
+						if(source_piece.color == Colors.WHITE) {
+							whiteKing = (King) chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
+							whiteKing_coordinates[0] = dest_coordinates[0]; whiteKing_coordinates[1] = dest_coordinates[1];
+						}
+						else {
+							blackKing = (King) chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
+							blackKing_coordinates[0] = dest_coordinates[0]; blackKing_coordinates[1] = dest_coordinates[1];
+						}
+					}
+
+					
+					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
+						//reverse the move because it is invalid
+						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
+						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
+						
+						//update piece if it's a king
+						if(source_piece instanceof King) { 
+							whiteKing = (King) chessBoard.board[source_coordinates[0]][source_coordinates[1]];
+							whiteKing_coordinates[0] = source_coordinates[0]; whiteKing_coordinates[1] = source_coordinates[1];
+						}
+						
+						
+						
+						System.out.println("Illegal move, try again");
+						whiteMove = !whiteMove;
+
+					}
+					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
+						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
+						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
+						
+						//update piece if its a king
+						if(source_piece instanceof King) { 
+							blackKing = (King) chessBoard.board[source_coordinates[0]][source_coordinates[1]];
+							blackKing_coordinates[0] = source_coordinates[0]; blackKing_coordinates[1] = source_coordinates[1];
+						}
+						System.out.println("Illegal move, try again");
+						whiteMove = !whiteMove;
+					}
+					
+					//check opp king
 				}
 				else {
 					System.out.println("Illegal move, try again");
 					whiteMove = !whiteMove;
->>>>>>> 206c8275596a54151e87963f6e7f4d5bdeda4b52
 				}
 					
 			}
@@ -106,3 +147,4 @@ public class Chess {
 	}
 
 }
+

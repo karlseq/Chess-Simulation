@@ -1,6 +1,5 @@
 package chess;
 
-import pieces.King;
 
 public class Utility {
 	

@@ -10,6 +10,9 @@ public class Board {
 	public void makeBoard() {
 		//adds black pieces to board
 		Colors black = Colors.BLACK;
+		Colors white = Colors.WHITE;
+
+		
 		board[0][0] = new Rook(black);
 		board[0][1] = new Knight(black);
 		board[0][2] = new Bishop(black);
@@ -22,10 +25,8 @@ public class Board {
 			board[1][col] = new Pawn(black);
 		}
 		
-		
-		
+
 		//adds white pieces to board
-		Colors white = Colors.WHITE;
 		board[7][0] = new Rook(white);
 		board[7][1] = new Knight(white);
 		board[7][2] = new Bishop(white);
@@ -37,6 +38,7 @@ public class Board {
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
+		
 		
 		
 	}
