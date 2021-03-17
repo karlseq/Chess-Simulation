@@ -73,23 +73,18 @@ public class Chess {
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
 				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
 				
-				//this is promotion
-				if(move.length() == 7) {
-					//handle promotion
-					//ex: g7 g8 N
-					//char promotion_piece = move.charAt(6);
-				}
 				
 				ChessPiece source_piece = chessBoard.board[source_coordinates[0]][source_coordinates[1]];
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 
 				
-				boolean isValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
-				if (isValid) {
+				boolean moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
+				if (moveIsValid) {
 					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
 					
 					//if the source piece was a king, you have to update whiteKing or blackKing references
 					if(source_piece instanceof King) {
+						
 						if(source_piece.color == Colors.WHITE) {
 							whiteKing = (King) chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 							whiteKing_coordinates[0] = dest_coordinates[0]; whiteKing_coordinates[1] = dest_coordinates[1];
@@ -102,6 +97,7 @@ public class Chess {
 
 					
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
+						
 						//reverse the move because it is invalid
 						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
 						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
@@ -111,14 +107,17 @@ public class Chess {
 							whiteKing = (King) chessBoard.board[source_coordinates[0]][source_coordinates[1]];
 							whiteKing_coordinates[0] = source_coordinates[0]; whiteKing_coordinates[1] = source_coordinates[1];
 						}
-						
-						
-						
 						System.out.println("Illegal move, try again");
 						whiteMove = !whiteMove;
 
 					}
 					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
+						//check if it's checkmate
+						if(blackKing.checkForCheckMate(whiteKing_coordinates, whiteKing, chessBoard)) {
+							System.out.println("Checkmate");
+							System.out.println("White Win");
+						}
+						
 						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
 						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
 						
@@ -130,8 +129,31 @@ public class Chess {
 						System.out.println("Illegal move, try again");
 						whiteMove = !whiteMove;
 					}
-					
 					//check opp king
+					else {
+						boolean check = false;
+						if(whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
+							check = true;
+							if(whiteKing.checkForCheckMate(whiteKing_coordinates, whiteKing, chessBoard)) {
+								chessBoard.drawBoard();
+								System.out.println("Checkmate");
+								System.out.println("Black wins");
+								game = false;
+								break;
+							}
+						}
+						else if(!whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
+							check = true;
+							if(blackKing.checkForCheckMate(blackKing_coordinates, blackKing, chessBoard)) {
+								chessBoard.drawBoard();
+								System.out.println("Checkmate");
+								System.out.println("White wins");
+								game = false;
+								break;
+							}
+						}
+						if(check) System.out.println("check");
+					}
 				}
 				else {
 					System.out.println("Illegal move, try again");

@@ -12,7 +12,7 @@ public class Board {
 		Colors black = Colors.BLACK;
 		Colors white = Colors.WHITE;
 
-		
+		/*
 		board[0][0] = new Rook(black);
 		board[0][1] = new Knight(black);
 		board[0][2] = new Bishop(black);
@@ -38,7 +38,13 @@ public class Board {
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
+		*/
 		
+		board[0][4] = new King(black);
+		board[1][0] = new Rook(white);
+		board[7][4] = new King(white);
+		
+		board[5][3] = new Queen(white);
 		
 		
 	}

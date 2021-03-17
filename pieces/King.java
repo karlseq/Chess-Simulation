@@ -249,6 +249,64 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		
 		return false;
 	}
+	
+	public boolean checkForCheckMate(int[] king_coordinates, ChessPiece king, Board chessBoard) {
+		int row = king_coordinates[0], col = king_coordinates[1];
+		chessBoard.getBoard()[row][col] = null;
+		
+		//iterate 3 spots behind
+		row = row - 1; col = col - 1;
+		for(int i = 0; i < 3; i++) {
+			if(row >= 0 && (col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) {
+				chessBoard.getBoard()[row][col] = king;
+				if(!isInCheck(new int[]{row, col}, king, chessBoard)) {
+					chessBoard.getBoard()[row][col] = null;
+					return false;
+				}
+				chessBoard.getBoard()[row][col] = null;
+			}
+			col++;
+		}
+		
+		//iterate 3 spots ahead
+		row = king_coordinates[0]+1; col = king_coordinates[1]-1;
+		for(int i = 0; i < 3; i++) {
+			if(row <=7 && (col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) {
+				chessBoard.getBoard()[row][col] = king;
+				if(!isInCheck(new int[]{row, col}, king, chessBoard)) {
+					chessBoard.getBoard()[row][col] = null;
+					return false;
+				}
+				chessBoard.getBoard()[row][col] = null;
+			}
+			col++;
+		}
+		
+		//left
+		row = king_coordinates[0]; col = king_coordinates[1]-1;
+		if(col >= 0 && (chessBoard.getBoard()[row][col] == null)) {
+			chessBoard.getBoard()[row][col] = king;
+			if(!isInCheck(new int[]{row, col}, king, chessBoard)) {
+				chessBoard.getBoard()[row][col] = null;
+				return false;
+			}
+			chessBoard.getBoard()[row][col] = null;
+		}
+		
+		//right
+		col = king_coordinates[1]+1;
+		if(col <= 7 && (chessBoard.getBoard()[row][col] == null)) {
+			chessBoard.getBoard()[row][col] = king;
+			if(!isInCheck(new int[]{row, col}, king, chessBoard)) {
+				chessBoard.getBoard()[row][col] = null;
+				return false;
+			}
+			chessBoard.getBoard()[row][col] = null;
+		}
+		
+		chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+		return true;
+	}
 	 
 	
 
