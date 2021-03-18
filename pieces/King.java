@@ -17,7 +17,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 	}
 
 	@Override
-	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
+	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
 		if (!checkLine(c1,cp1,c2,cp2,chessBoard) && !checkDiagonal(c1,cp1,c2,cp2,chessBoard)) {
 			return false;
 		}
@@ -62,7 +62,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return false;
 	}
 	
-	public boolean isInCheck(int[] king_coordinates, ChessPiece king, Board chessBoard) {
+	public boolean isInCheck(int[] king_coordinates, ChessPiece king, char promotionPiece,Board chessBoard) {
 		
 		/* How does this algorithm work?
 		 * check each diagonal / horizontal/ vertical / and knight position going into King
@@ -82,7 +82,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		ChessPiece currentPiece = null;
 		while(i >= 0 && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[king_coordinates[0]][i];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			i--;
@@ -93,7 +94,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while(i <= 7 && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[king_coordinates[0]][i];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			i++;
@@ -104,7 +106,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while(i <= 7 && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[i][king_coordinates[1]];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			i++;
@@ -115,7 +118,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while(i >= 0 && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[i][king_coordinates[1]];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			i--;
@@ -125,7 +129,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while((row <= 7 && col >=0) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			row++; col--;
@@ -136,7 +141,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while((col <= 7 && row <=7) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			row++; col++;
@@ -147,7 +153,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while((row >= 0 && col >=0) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			row--; col--;
@@ -158,7 +165,8 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		currentPiece = null;
 		while((row >=0 && col <= 7) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, chessBoard)) {
+			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
+					promotionPiece,chessBoard)) {
 				return true;
 			}
 			row--; col++;
@@ -304,7 +312,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		chessBoard.getBoard()[row][col] = king;
 		boolean check = true;
 		
-		if(!isInCheck(new int[]{row, col}, king, chessBoard)) {
+		if(!isInCheck(new int[]{row, col}, king, 'A',chessBoard)) {
 			chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 			check = false;
 		}
@@ -339,7 +347,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 	//moves the King to its appropriate spot
 	//2 types: traditional and castling
 	@Override
-	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard) {
+	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		if (isCastleMove) { //castle move
 			chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 			chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;

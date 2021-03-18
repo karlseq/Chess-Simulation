@@ -15,7 +15,7 @@ public class Knight extends ChessPiece {
 	}
 
 	@Override
-	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, Board chessBoard) {
+	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
 		/*what constitutes a valid move?
 		 * two options:
 		 * 	1) regular L (flipped / backwards)
@@ -43,7 +43,7 @@ public class Knight extends ChessPiece {
 	}
 	
 	@Override
-	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard) {
+	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 		chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
 	}

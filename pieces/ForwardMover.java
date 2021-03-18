@@ -13,7 +13,7 @@ public interface ForwardMover {
 		 * so: same y and different x's
 		 * or: same x and different y's
 		 */
-		
+	
 		if (!isInBoard(c1[0],c1[1],c2[0],c2[1])) return false; //makes sure the move is within the bounds of the board
 		
 		boolean same_y = c1[0] == c2[0] && c1[1] != c2[1];

@@ -38,15 +38,6 @@ public class Board {
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
-		
-		
-		board[0][4] = new King(white);
-		board[1][5] = new Rook(black);
-		board[7][4] = new King(black);
-		
-		board[5][3] = new Queen(black);
-		
-		
 	}
 	
 	public void drawBoard() {

@@ -69,15 +69,20 @@ public class Chess {
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
 				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
 				
+				char promotionPiece = 'X'; //x is just arbitrary
+				if(move.length() == 7) {
+					//handle promotion
+					//ex: g7 g8 N
+					promotionPiece = move.charAt(6);
+				}
 				
 				ChessPiece source_piece = chessBoard.board[source_coordinates[0]][source_coordinates[1]];
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
-
 				
-				boolean moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
 
+				boolean moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, promotionPiece,chessBoard);
 				if (moveIsValid) {
-					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
+					source_piece.move(source_coordinates, source_piece, dest_coordinates, promotionPiece,chessBoard);
 					
 					//if the source piece was a king, you have to update whiteKing or blackKing references
 					if(source_piece instanceof King) {
@@ -91,23 +96,22 @@ public class Chess {
 							blackKing_coordinates[0] = dest_coordinates[0]; blackKing_coordinates[1] = dest_coordinates[1];
 						}
 					}
-
 					//if it's white's turn and white's move puts the whiteKing in check it is invalid
-					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
+					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, promotionPiece,chessBoard)) {
 						whiteMove =Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
 					}
 					//if it's black's turn and black's move puts the blackKing in check it is invalid
-					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
+					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, promotionPiece,chessBoard)) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, blackKing_coordinates, blackKing, chessBoard, whiteMove);
 					}
 					//check if opposite king is put in check
 					else {
 						boolean check = false;
-						if(whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
+						if(whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, promotionPiece,chessBoard)) {
 							check = true;
 							game = Utility.handleLegalCheck(whiteKing_coordinates, whiteKing, chessBoard, check, game);
 						}
-						else if(!whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
+						else if(!whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, promotionPiece,chessBoard)) {
 							check = true;
 							game =Utility.handleLegalCheck(blackKing_coordinates, blackKing, chessBoard, check, game);
 						}
@@ -125,7 +129,7 @@ public class Chess {
 			System.out.println();
 
 		}
-				
+
 	}
 
 }
