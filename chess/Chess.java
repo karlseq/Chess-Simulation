@@ -75,6 +75,7 @@ public class Chess {
 
 				
 				boolean moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, chessBoard);
+
 				if (moveIsValid) {
 					source_piece.move(source_coordinates, source_piece, dest_coordinates, chessBoard);
 					
