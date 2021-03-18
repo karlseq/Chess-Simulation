@@ -22,15 +22,16 @@ public class Chess {
 		//read input from user
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
-		King blackKing = (King) chessBoard.board[0][4];
-		King whiteKing = (King) chessBoard.board[7][4];
+		King blackKing = (King) chessBoard.board[7][4];
+		King whiteKing = (King) chessBoard.board[0][4];
 		
-		int[] blackKing_coordinates = {0, 4};
-		int[] whiteKing_coordinates = {7, 4};
+		int[] blackKing_coordinates = {7, 4};
+		int[] whiteKing_coordinates = {0, 4};
 		
 		
 		while(game) {
-			if(draw) game = false; else chessBoard.drawBoard();
+			if(draw) game = false;
+			else chessBoard.drawBoard();
 			
 			if(whiteMove) {
 				System.out.print("White's Move: ");
@@ -48,12 +49,11 @@ public class Chess {
 			/* Possible Inputs
 			 * 1) resign (opposite player wins)
 			 * 2) move contains "draw?". Allow next player to type input (whatever it may be), and game ends
-			 * 3) move with a character at the end (castling move). Have to check if valid
-			 * 4) regular move
+			 * 3) regular move with or without promotion
 			 */
 			
-			/* RESIGN */
-			if(move.equals("resign")){
+			if(move.equals("resign")){ 	/* RESIGN */
+
 				if(whiteMove) {
 					System.out.print("White wins");
 				}
@@ -63,13 +63,9 @@ public class Chess {
 				game = false;
 			}
 			
-			/* DRAW */
-			else if(move.contains("draw?")) draw = true;
-			//what is pass for?
-			else if(move.contains("pass")) continue;  //TAKE OUT LATER
-			/* regular move / promotion */
-			else {
-				
+			else if(move.contains("draw?")) draw = true; /* DRAW */
+			else { 	/* REGULAR MOVE / REGULAR MOVE WITH PROMOTION */
+
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
 				int[] dest_coordinates = Utility.getRowCol(move.substring(3));
 				
@@ -95,64 +91,27 @@ public class Chess {
 						}
 					}
 
-					
+					//if it's white's turn and white's move puts the whiteKing in check it is invalid
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
-						
-						//reverse the move because it is invalid
-						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
-						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
-						
-						//update piece if it's a king
-						if(source_piece instanceof King) { 
-							whiteKing = (King) chessBoard.board[source_coordinates[0]][source_coordinates[1]];
-							whiteKing_coordinates[0] = source_coordinates[0]; whiteKing_coordinates[1] = source_coordinates[1];
-						}
-						System.out.println("Illegal move, try again");
-						whiteMove = !whiteMove;
-
+						whiteMove =Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
 					}
+					//if it's black's turn and black's move puts the blackKing in check it is invalid
 					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
-						//check if it's checkmate
-						if(blackKing.checkForCheckMate(whiteKing_coordinates, whiteKing, chessBoard)) {
-							System.out.println("Checkmate");
-							System.out.println("White Win");
-						}
-						
-						chessBoard.board[source_coordinates[0]][source_coordinates[1]] = source_piece;
-						chessBoard.board[dest_coordinates[0]][dest_coordinates[1]] = dest_piece;
-						
-						//update piece if its a king
-						if(source_piece instanceof King) { 
-							blackKing = (King) chessBoard.board[source_coordinates[0]][source_coordinates[1]];
-							blackKing_coordinates[0] = source_coordinates[0]; blackKing_coordinates[1] = source_coordinates[1];
-						}
-						System.out.println("Illegal move, try again");
-						whiteMove = !whiteMove;
+						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, blackKing_coordinates, blackKing, chessBoard, whiteMove);
 					}
-					//check opp king
+					//check if opposite king is put in check
 					else {
 						boolean check = false;
 						if(whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard)) {
 							check = true;
-							if(whiteKing.checkForCheckMate(whiteKing_coordinates, whiteKing, chessBoard)) {
-								chessBoard.drawBoard();
-								System.out.println("Checkmate");
-								System.out.println("Black wins");
-								game = false;
-								break;
-							}
+							game = Utility.handleLegalCheck(whiteKing_coordinates, whiteKing, chessBoard, check, game);
 						}
 						else if(!whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard)) {
 							check = true;
-							if(blackKing.checkForCheckMate(blackKing_coordinates, blackKing, chessBoard)) {
-								chessBoard.drawBoard();
-								System.out.println("Checkmate");
-								System.out.println("White wins");
-								game = false;
-								break;
-							}
+							game =Utility.handleLegalCheck(blackKing_coordinates, blackKing, chessBoard, check, game);
 						}
-						if(check) System.out.println("check");
+						if(game && check) System.out.println("check");
+
 					}
 				}
 				else {

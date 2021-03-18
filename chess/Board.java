@@ -40,11 +40,11 @@ public class Board {
 		}
 		*/
 		
-		board[0][4] = new King(black);
-		board[1][0] = new Rook(white);
-		board[7][4] = new King(white);
+		board[0][4] = new King(white);
+		board[1][5] = new Rook(black);
+		board[7][4] = new King(black);
 		
-		board[5][3] = new Queen(white);
+		board[5][3] = new Queen(black);
 		
 		
 	}
