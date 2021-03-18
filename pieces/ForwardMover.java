@@ -13,15 +13,19 @@ public interface ForwardMover {
 		 * so: same y and different x's
 		 * or: same x and different y's
 		 */
-		
+	
 		if (!isInBoard(c1[0],c1[1],c2[0],c2[1])) return false; //makes sure the move is within the bounds of the board
 		
 		boolean same_y = c1[0] == c2[0] && c1[1] != c2[1];
 		boolean same_x = c1[1] == c2[1] && c1[0] != c2[0];
 		
-		if(!same_y && !same_x) return false;
-		
- 		else if(cp2 != null && cp2.color.equals(cp1.color)) return false;
+
+		if(!same_y && !same_x) {
+			return false;
+		}
+ 		else if(cp2 != null && cp2.color == cp1.color) {
+ 			return false;
+ 		}
 		
 		return LineIsEmpty(c1[0], c1[1], c2[0], c2[1], cp2, chessBoard);
 	}

@@ -28,7 +28,7 @@ public class Bishop  extends ChessPiece implements DiagonalMover {
 
 	
 	@Override
-	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard) {
+	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 		chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
 	}

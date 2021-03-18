@@ -26,7 +26,7 @@ public class Knight extends ChessPiece {
 		
 		int run = Math.abs(c1[1] - c2[1]), rise = Math.abs(c1[0] - c2[0]);
 		
-		boolean sideways_L = run == 2 && rise == 1, regular_L = run == 1 && rise == 2;
+		boolean sideways_L = (run == 2 && rise == 1), regular_L = (run == 1 && rise == 2);
 		
 		if(!sideways_L && !regular_L) return false;
 		else if(cp2!=null && cp2.color.equals(cp1.color)) return false;
@@ -43,7 +43,7 @@ public class Knight extends ChessPiece {
 	}
 	
 	@Override
-	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, Board chessBoard) {
+	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 		chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
 	}
