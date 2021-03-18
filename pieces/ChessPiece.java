@@ -26,6 +26,6 @@ public abstract class ChessPiece {
 	}
 	
 	//promotion piece only used in Pawn.java
-	public abstract boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard);
-	public abstract void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece, Board chessBoard);
+	public abstract boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2,char promotionPiece,Board chessBoard);
+	public abstract void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard);
 }

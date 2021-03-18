@@ -240,4 +240,5 @@ public class Pawn extends ChessPiece {
 		}
 		setJMT(color,chessBoard);
 	}
+
 }

@@ -62,7 +62,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return false;
 	}
 	
-	public boolean isInCheck(int[] king_coordinates, ChessPiece king, char promotionPiece, Board chessBoard) {
+	public boolean isInCheck(int[] king_coordinates, ChessPiece king, char promotionPiece,Board chessBoard) {
 		
 		/* How does this algorithm work?
 		 * check each diagonal / horizontal/ vertical / and knight position going into King
@@ -256,6 +256,68 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		
 		
 		return false;
+	}
+	
+	public boolean checkForCheckMate(int[] king_coordinates, ChessPiece king, Board chessBoard) {
+		int row = king_coordinates[0], col = king_coordinates[1];
+		chessBoard.getBoard()[row][col] = null;
+		
+		//go to backwards row
+		row = row - 1; col = col - 1;
+		if(row >= 0) {
+			for(int i = 0; i < 3; i++) {
+				if((col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) {
+					if(!spotIsInCheck(row, col, king_coordinates, (King) king, chessBoard)) {
+						return false;
+					}
+				}
+				col++;
+			}
+		}
+		
+		//go to forward row
+		if(row <=7) {
+			row = king_coordinates[0]+1; col = king_coordinates[1]-1;
+			for(int i = 0; i < 3; i++) {
+				if((col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) {
+					if(!spotIsInCheck(row, col, king_coordinates, (King) king, chessBoard)) {
+						return false;
+					}
+				}
+				col++;
+			}
+		}
+		
+		//left
+		row = king_coordinates[0]; col = king_coordinates[1]-1;
+		if(col >= 0 && (chessBoard.getBoard()[row][col] == null)) {
+			if(!spotIsInCheck(row, col, king_coordinates, (King) king, chessBoard)) {
+				return false;
+			}
+		}
+		
+		//right
+		col = king_coordinates[1]+1;
+		if(col <= 7 && (chessBoard.getBoard()[row][col] == null)) {
+			if(!spotIsInCheck(row, col, king_coordinates, (King) king, chessBoard)) {
+				return false;
+			}
+		}
+		
+		chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+		return true;
+	}
+	
+	private boolean spotIsInCheck(int row, int col, int[] king_coordinates, King king, Board chessBoard) {
+		chessBoard.getBoard()[row][col] = king;
+		boolean check = true;
+		
+		if(!isInCheck(new int[]{row, col}, king, 'A',chessBoard)) {
+			chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+			check = false;
+		}
+		chessBoard.getBoard()[row][col] = null;
+		return check;
 	}
 	 
 	
