@@ -22,11 +22,11 @@ public class Chess {
 		//read input from user
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
-		King blackKing = (King) chessBoard.board[7][4];
-		King whiteKing = (King) chessBoard.board[0][4];
+		King blackKing = (King) chessBoard.board[0][4];
+		King whiteKing = (King) chessBoard.board[7][4];
 		
-		int[] blackKing_coordinates = {7, 4};
-		int[] whiteKing_coordinates = {0, 4};
+		int[] blackKing_coordinates = {0, 4};
+		int[] whiteKing_coordinates = {7, 4};
 		
 		
 		while(game) {
@@ -64,6 +64,7 @@ public class Chess {
 			}
 			
 			else if(move.contains("draw?")) draw = true; /* DRAW */
+			else if(move.contains("pass")) whiteMove = !whiteMove;
 			else { 	/* REGULAR MOVE / REGULAR MOVE WITH PROMOTION */
 
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));

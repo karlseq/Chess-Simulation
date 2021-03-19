@@ -276,10 +276,10 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		}
 		
 		//go to forward row
+		row = king_coordinates[0]+1; col = king_coordinates[1]-1;
 		if(row <=7) {
-			row = king_coordinates[0]+1; col = king_coordinates[1]-1;
 			for(int i = 0; i < 3; i++) {
-				if((col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) {
+				if((col >= 0 && col <=7) && chessBoard.getBoard()[row][col] == null) { //figure this out
 					if(!spotIsInCheck(row, col, king_coordinates, (King) king, chessBoard)) {
 						return false;
 					}
