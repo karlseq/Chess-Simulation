@@ -225,6 +225,11 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 					}
 				}
 			}
+			
+			/* castling move */
+			//check if castling possible
+				//if so return false
+			
 		}
 			
 		

@@ -37,7 +37,7 @@ public class Board {
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
-		
+			
 	}
 	
 	public void drawBoard() {
