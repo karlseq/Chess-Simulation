@@ -33,28 +33,10 @@ public class Utility {
 		if(king.checkForCheckMate(king_coordinates, king, chessBoard, threat_coordinates)) {
 			chessBoard.drawBoard();
 			System.out.println("Checkmate");
-			System.out.println("Black wins");
+			System.out.println(king.color + " wins");
 			return game=false;
 		}
 		return game=true;
-	}
-	
-	public static void foo() {
-		int x = 6;
-		if(x == 3) {
-			System.out.println("yo");
-			return;
-		}
-		else if(x == 4) {
-			System.out.println("no");
-			return;
-		}
-		
-		System.out.println("dughi");
-	}
-	
-	public static void main(String[] args) {
-		foo();
 	}
 	
 }
