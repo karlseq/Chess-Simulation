@@ -62,203 +62,32 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return false;
 	}
 	
-	public boolean isInCheck(int[] king_coordinates, ChessPiece king, char promotionPiece,Board chessBoard) {
-		
-		/* How does this algorithm work?
-		 * check each diagonal / horizontal/ vertical / and knight position going into King
-		 * iterate through the entire line
-		 * 		if the line is empty, perfect, no threat
-		 * 		else if you find a piece there, 
-		 * 			determine if isValidMove from that piece to king
-		 *				if so, it's in check, if not, that part is good
-		 * 
-		 * 
-		 * 
-		 * make all of this a lambda?? or use interfaces
-		 */
-		
-		//check left //good
-		int i = king_coordinates[1] - 1;
-		ChessPiece currentPiece = null;
-		while(i >= 0 && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[king_coordinates[0]][i];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			i--;
-		}
-		
-		//check right //good
-		i = king_coordinates[1] + 1;
-		currentPiece = null;
-		while(i <= 7 && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[king_coordinates[0]][i];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {king_coordinates[0], i}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			i++;
-		}
-		
-		//check up //good
-		i = king_coordinates[0] + 1;
-		currentPiece = null;
-		while(i <= 7 && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[i][king_coordinates[1]];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			i++;
-		}
-		
-		//check down
-		i = king_coordinates[0] - 1;
-		currentPiece = null;
-		while(i >= 0 && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[i][king_coordinates[1]];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {i, king_coordinates[1]}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			i--;
-		}
-		//check forward left diagonal //good
-		int col = king_coordinates[1]-1, row = king_coordinates[0]+1;
-		currentPiece = null;
-		while((row <= 7 && col >=0) && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			row++; col--;
-		}
-		
-		//check forward right diagonal //good
-		col = king_coordinates[1]+1; row = king_coordinates[0]+1;
-		currentPiece = null;
-		while((col <= 7 && row <=7) && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			row++; col++;
-		}
-		
-		//check backward left diagonal //good
-		col = king_coordinates[1]-1; row = king_coordinates[0]-1;
-		currentPiece = null;
-		while((row >= 0 && col >=0) && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			row--; col--;
-		}
-		
-		//check backward right diagonal //good
-		col = king_coordinates[1]+1; row = king_coordinates[0]-1;
-		currentPiece = null;
-		while((row >=0 && col <= 7) && currentPiece == null) {
-			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, king_coordinates, king, 
-					promotionPiece,chessBoard)) {
-				return true;
-			}
-			row--; col++;
-		}
-		
-		
-		//all you have to check is if the piece occupying that spot is a knight of opposite color
-	
-		//regular L forward //good
-		row = king_coordinates[0] + 2;
-		if(row <=7) {
-			col = king_coordinates[1]-1;//left
-			if(col >= 0) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-			col = king_coordinates[1] + 1; //right
-			if(col <= 7) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-		}
-		//regular L backward //good
-		row = king_coordinates[0] - 2;
-		if(row >= 0) {
-			col = king_coordinates[1]-1;//left
-			if(col >= 0) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-			col = king_coordinates[1] + 1; //right
-			if(col <= 7) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-
-		}
-		
-		//sideways L forward //good
-		row = king_coordinates[0] + 1;
-		if(row <= 7) {
-			col = king_coordinates[1] - 2;
-			if(col >= 0) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-
-			col = king_coordinates[1] + 2; //right
-			if(col <= 7) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-		}
-		
-		//sideways L backward //good
-		row = king_coordinates[0] - 1;
-		if(row >= 0) {
-			col = king_coordinates[1] - 2; // left
-			if(col >= 0) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-
-			col = king_coordinates[1] + 2; //right
-			if(col <= 7) {
-				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && currentPiece.color != king.color) {
-					return true;
-				}
-			}
-
-		}
-		
-		
-		return false;
+	public int[] isInCheck(int[] king_coordinates, King king, Board chessBoard) {
+		return super.canBeKilled(king_coordinates, king, 'A', null, chessBoard);
 	}
 	
-	public boolean checkForCheckMate(int[] king_coordinates, ChessPiece king, Board chessBoard) {
+	
+	//just see what type the threatPiece is and determine the checks using that!!!
+	public boolean checkForCheckMate(int[] king_coordinates, King king, Board chessBoard, int[] threat_coordinates) {
+		ChessPiece threatPiece = chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]];
+		
+		//check if king can kill threat without falling into check again
+		if(king.isValidMove(king_coordinates, king, threat_coordinates, threatPiece, 'A', chessBoard)) {
+			//make king spot null
+			chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = null;
+			chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]] = king;
+			
+			boolean isValid = isInCheck(threat_coordinates, king, chessBoard) == null;
+
+			//reverse move regardless of outcome
+			chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+			chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]] = threatPiece;
+			
+			if(isValid) return false;
+		}
+		else if(canBeKilled(threat_coordinates, threatPiece, 'A', null, chessBoard) != null) return false;
+		
+		//check if king can flee
 		int row = king_coordinates[0], col = king_coordinates[1];
 		chessBoard.getBoard()[row][col] = null;
 		
@@ -304,6 +133,101 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 			}
 		}
 		
+		/* check if it can be saved*/
+		
+		//threat coordinate is above the king
+		if(threat_coordinates[0] < king_coordinates[0] && threat_coordinates[1] == king_coordinates[1]) {
+			for(int i = threat_coordinates[0]; i < king_coordinates[0]; i++) {
+				//check if there is a savior in that spot
+				int[] savior = canBeKilled(new int[] {i, threat_coordinates[1]}, chessBoard.getBoard()[i][threat_coordinates[1]],'A', chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]],chessBoard);
+				if(savior != null) {
+					chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+					return false;
+				}
+			}
+		}
+		
+		//threat coordinate below the king
+		if(threat_coordinates[0] > king_coordinates[0] && threat_coordinates[1] == king_coordinates[1]) {
+			for(int i = threat_coordinates[0]; i > king_coordinates[0]; i--) {
+				//check if there is a savior in that spot
+				int[] savior = canBeKilled(new int[] {i, threat_coordinates[1]}, chessBoard.getBoard()[i][threat_coordinates[1]],'A', chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]],chessBoard);
+				if(savior != null) {
+					chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+					return false;
+				}
+			}
+		}
+		
+		//threat coordinate horizontally on left
+		if(threat_coordinates[0] == king_coordinates[0] && threat_coordinates[1] < king_coordinates[1]) {
+			for(int i = threat_coordinates[1]; i < king_coordinates[1]; i++) {
+				//check if there is a savior in that spot
+				int[] savior = canBeKilled(new int[] {threat_coordinates[0], i}, chessBoard.getBoard()[threat_coordinates[0]][i],'A', chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]],chessBoard);
+				if(savior != null) {
+					chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+					return false;
+				}
+			}
+		}
+		
+		//threat coordinate horizontally on right
+		if(threat_coordinates[0] == king_coordinates[0] && threat_coordinates[1] > king_coordinates[1]) {
+			for(int i = threat_coordinates[1]; i > king_coordinates[1]; i--) {
+				//check if there is a savior in that spot
+				int[] savior = canBeKilled(new int[] {threat_coordinates[0], i}, chessBoard.getBoard()[threat_coordinates[0]][i],'A', chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]],chessBoard);
+				if(savior != null) {
+					chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+					return false;
+				}
+			}
+		}
+		
+		//handle diagonals
+		if(checkDiagonal(threat_coordinates, threatPiece, king_coordinates, king, chessBoard)) {
+			if(threat_coordinates[0] > king_coordinates[0]) { //king is behind
+				if(threat_coordinates[1] > king_coordinates[1]) { //left
+					for(int i=threat_coordinates[0], j=threat_coordinates[1]; i> king_coordinates[0] && j>king_coordinates[1];i--, j--) {
+						int[] savior = canBeKilled(new int[] {i, j}, chessBoard.getBoard()[i][j],'A', threatPiece,chessBoard);
+						if(savior != null) {
+							chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+							return false;
+						}
+					}
+				}
+				else { //right
+					for(int i=threat_coordinates[0], j=threat_coordinates[1]; i> king_coordinates[0] && j<king_coordinates[1];i--, j++) {
+						int[] savior = canBeKilled(new int[] {i, j}, chessBoard.getBoard()[i][j],'A', threatPiece,chessBoard);
+						if(savior != null) {
+							chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+							return false;
+						}
+					}
+				}
+			}
+			else { //ahead
+				if(threat_coordinates[1] > king_coordinates[1]) { //right
+					for(int i=threat_coordinates[0], j=threat_coordinates[1]; i< king_coordinates[0] && j>king_coordinates[1];i++, j--) {
+						int[] savior = canBeKilled(new int[] {i, j}, chessBoard.getBoard()[i][j],'A', threatPiece,chessBoard);
+						if(savior != null) {
+							chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+							return false;
+						}
+					}
+				}
+				else { //left
+					for(int i=threat_coordinates[0], j=threat_coordinates[1]; i< king_coordinates[0] && j<king_coordinates[1];i++, j++) {
+						int[] savior = canBeKilled(new int[] {i, j}, chessBoard.getBoard()[i][j],'A', threatPiece,chessBoard);
+						if(savior != null) {
+							chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
+							return false;
+						}
+					}
+				}
+			}
+		}
+			
+		
 		chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 		return true;
 	}
@@ -312,7 +236,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		chessBoard.getBoard()[row][col] = king;
 		boolean check = true;
 		
-		if(!isInCheck(new int[]{row, col}, king, 'A',chessBoard)) {
+		if(isInCheck(new int[]{row, col}, king, chessBoard) == null) {
 			chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 			check = false;
 		}

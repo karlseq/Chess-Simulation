@@ -28,9 +28,9 @@ public class Utility {
 	}
 	
 	//handles when there's a check and you need to check for checkMate
-	public static boolean handleLegalCheck(int[] king_coordinates, King king, Board chessBoard, Boolean check, Boolean game) {
+	public static boolean handleLegalCheck(int[] king_coordinates, int[] threat_coordinates, King king, Board chessBoard, Boolean check, Boolean game) {
 		check = true;
-		if(king.checkForCheckMate(king_coordinates, king, chessBoard)) {
+		if(king.checkForCheckMate(king_coordinates, king, chessBoard, threat_coordinates)) {
 			chessBoard.drawBoard();
 			System.out.println("Checkmate");
 			System.out.println("Black wins");
@@ -39,5 +39,22 @@ public class Utility {
 		return game=true;
 	}
 	
+	public static void foo() {
+		int x = 6;
+		if(x == 3) {
+			System.out.println("yo");
+			return;
+		}
+		else if(x == 4) {
+			System.out.println("no");
+			return;
+		}
+		
+		System.out.println("dughi");
+	}
+	
+	public static void main(String[] args) {
+		foo();
+	}
 	
 }

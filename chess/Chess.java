@@ -26,7 +26,7 @@ public class Chess {
 		King whiteKing = (King) chessBoard.board[7][4];
 		
 		int[] blackKing_coordinates = {0, 4};
-		int[] whiteKing_coordinates = {7, 4};
+		int[] whiteKing_coordinates = {7,4};
 		
 		
 		while(game) {
@@ -64,7 +64,7 @@ public class Chess {
 			}
 			
 			else if(move.contains("draw?")) draw = true; /* DRAW */
-			else if(move.contains("pass")) whiteMove = !whiteMove;
+			else if(move.contains("pass")) continue;
 			else { 	/* REGULAR MOVE / REGULAR MOVE WITH PROMOTION */
 
 				int[] source_coordinates = Utility.getRowCol(move.substring(0, 2));
@@ -98,23 +98,30 @@ public class Chess {
 						}
 					}
 					//if it's white's turn and white's move puts the whiteKing in check it is invalid
-					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, promotionPiece,chessBoard)) {
-						whiteMove =Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
+					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard) != null) {
+						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
 					}
 					//if it's black's turn and black's move puts the blackKing in check it is invalid
-					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, promotionPiece,chessBoard)) {
+					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, blackKing_coordinates, blackKing, chessBoard, whiteMove);
 					}
 					//check if opposite king is put in check
 					else {
 						boolean check = false;
-						if(whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, promotionPiece,chessBoard)) {
-							check = true;
-							game = Utility.handleLegalCheck(whiteKing_coordinates, whiteKing, chessBoard, check, game);
+						int[] threat_coordinates;
+						if(whiteMove) {
+							threat_coordinates = whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard);
+							if(threat_coordinates != null) {
+								check = true;
+								game = Utility.handleLegalCheck(whiteKing_coordinates, threat_coordinates, whiteKing, chessBoard, check, game);	
+							}
 						}
-						else if(!whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, promotionPiece,chessBoard)) {
-							check = true;
-							game =Utility.handleLegalCheck(blackKing_coordinates, blackKing, chessBoard, check, game);
+						else if(!whiteMove) {
+							threat_coordinates = blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard);
+							if(threat_coordinates != null) {
+								check = true;
+								game = Utility.handleLegalCheck(blackKing_coordinates, threat_coordinates, blackKing, chessBoard, check, game);	
+							}
 						}
 						if(game && check) System.out.println("check");
 

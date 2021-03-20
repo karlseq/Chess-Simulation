@@ -24,3 +24,10 @@ here is what happens with move:
 
 what is a checkmate:
 	-basically, the king tries moving to every possible adjacent square, and if that square puts him in check, that's a checkmate
+	
+	
+	
+what to fix in checkmate:
+	-if a threat puts a king in check
+		if the king can kill threat without that moving also placing him in check
+			NOT A CHECKMATE
