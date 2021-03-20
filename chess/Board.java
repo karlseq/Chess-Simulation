@@ -29,10 +29,10 @@ public class Board {
 		board[7][0] = new Rook(white);
 		board[7][1] = new Knight(white);
 		board[7][2] = new Bishop(white);
-		board[7][3] = new Rook(white);
+		board[7][3] = new Queen(white);
 		board[7][4] = new King(white);
-		board[7][5] = new Rook(white);
-		board[7][6] = new Pawn(white);
+		board[7][5] = new Bishop(white);
+		board[7][6] = new Knight(white);
 		board[7][7] = new Rook(white);
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
