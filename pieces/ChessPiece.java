@@ -86,7 +86,7 @@ public abstract class ChessPiece {
 	 * @param promotionPiece what piece the Pawn should be promoted to (not useful for this method)
 	 * @param threatPiece piece that can kill the given piece (initially null)
 	 * @param chessBoard actual chess board
-	 * @return coordinates of a threat piece that can kill the given piece
+	 * @return returns the coordinates of a threat piece that can kill the given piece, null if given piece can't be killed
 	 */
 	public int[] canBeKilled(int[] piece_coordinates, ChessPiece piece, char promotionPiece, ChessPiece threatPiece, Board chessBoard) {
 		

@@ -2,10 +2,25 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a King chess piece
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
+
 public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 	
-	boolean isCastleMove = false; //tells if the move is a castling move
+	/**
+	 * Tells if the move the user wants to make is a castling move
+	 */
+	boolean isCastleMove = false;
 	
+	/**
+	 * Creates a King chess piece of the given color
+	 * 
+	 * @param color the color of the King piece (black or white)
+	 */
 	public King(Colors color) {
 		super(color);
 	}
@@ -54,7 +69,13 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return true;
 	}
 	
-	//makes sure the dest coordinates are exactly right for castling
+	/**
+	 * Determines if the destination coordinates are exactly right for the king to castle
+	 * 
+	 * @param corner which corner of the board to look at
+	 * @param c2 destination coordinates
+	 * @return returns true if dest coordinates are correct for castling
+	 */
 	private boolean rightDest(int[] corner, int[] c2) {
 		if (corner[0]==0 && corner[1]==0) { //top left corner
 			if (c2[0]!=0 || c2[1]!=2) return false;
@@ -71,7 +92,13 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return true;
 	}
 	
-	//returns true if the dest is more than one square away from the src
+	/**
+	 * Determines if the user wants to move the king more than one space
+	 * 
+	 * @param c1 source coordinates
+	 * @param c2 destination coordinates
+	 * @return returns true if the move would move the king more than one space
+	 */
 	private boolean isMoreThanOne(int[] c1, int[] c2) {
 		if ((Math.abs(c1[0]-c2[0])>1) || (Math.abs(c1[1]-c2[1])>1)) {
 			return true;
@@ -79,12 +106,28 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return false;
 	}
 	
+	/**
+	 * Determines if the king is currently in check
+	 * 
+	 * @param king_coordinates coordinates of the king
+	 * @param king actual king piece
+	 * @param chessBoard actual chess board
+	 * @return returns the coordinates of the piece that put the king in check, null if king is not in check
+	 */
 	public int[] isInCheck(int[] king_coordinates, King king, Board chessBoard) {
 		return super.canBeKilled(king_coordinates, king, 'A', null, chessBoard);
 	}
 	
 	
-	//just see what type the threatPiece is and determine the checks using that!!!
+	/**
+	 * Determines if the king has been checkmated
+	 * 
+	 * @param king_coordinates coordinates of the king
+	 * @param king actual king piece
+	 * @param chessBoard actual chess board
+	 * @param threat_coordinates coordinates of the piece that put the king in check
+	 * @return returns true if checkmate has been detected
+	 */
 	public boolean checkForCheckMate(int[] king_coordinates, King king, Board chessBoard, int[] threat_coordinates) {
 		ChessPiece threatPiece = chessBoard.getBoard()[threat_coordinates[0]][threat_coordinates[1]];
 		
@@ -295,6 +338,16 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return true;
 	}
 	
+	/**
+	 * Puts the king in the given spot and determines if it would be in check at that spot
+	 * 
+	 * @param row row index of the spot to move the king into
+	 * @param col column index of the spot to move the king into
+	 * @param king_coordinates coordinates of the king
+	 * @param king actual king piece
+	 * @param chessBoard actual chess board
+	 * @return returns true if the king is in check at the given spot
+	 */
 	private boolean spotIsInCheck(int row, int col, int[] king_coordinates, King king, Board chessBoard) {
 		chessBoard.getBoard()[row][col] = king;
 		boolean check = true;
@@ -309,7 +362,12 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 	 
 	
 
-	//determines which corner the rook for castling would be at
+	/**
+	 * Determines which corner the rook for castling would be at
+	 * 
+	 * @param c2 destination coordinates
+	 * @return returns the coordinates of the corner where the rook for castling should be at
+	 */
 	private int[] whichCorner(int[] c2) {
 		int[] corner = new int[2];
 		if (c2[0]<3 && c2[1]<3) { //top left corner
@@ -331,8 +389,6 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		return corner;
 	}
 	
-	//moves the King to its appropriate spot
-	//2 types: traditional and castling
 	@Override
 	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		if (isCastleMove) { //castle move

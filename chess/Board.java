@@ -1,12 +1,25 @@
 package chess;
 
-//import java.util.ArrayList;
 import pieces.*;
+
+/**
+ * Represents the actual chess board
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
 
 public class Board {
 
+	/**
+	 * The 8x8 chess board
+	 */
 	ChessPiece[][] board = new ChessPiece[8][8]; //board, not including borders (file or rank labels)
 	
+	/**
+	 * Creates the chess board at the start of the game
+	 * White and black pieces in its appropriate starting positions
+	 */
 	public void makeBoard() {
 		Colors black = Colors.BLACK;
 		Colors white = Colors.WHITE;
@@ -39,6 +52,9 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Displays the board to the terminal
+	 */
 	public void drawBoard() {
 		int rankNum = 8; //allows to print the rank labels (1-8)
 		for (int i=0; i<8; i++) {
@@ -78,6 +94,11 @@ public class Board {
 		System.out.println();
  	}
 	
+	/**
+	 * Fetches the chess board
+	 * 
+	 * @return returns the chess board
+	 */
 	public ChessPiece[][] getBoard() {
 		return this.board;
 	}
