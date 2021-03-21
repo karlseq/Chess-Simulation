@@ -80,7 +80,9 @@ public class Chess {
 				ChessPiece source_piece = chessBoard.board[source_coordinates[0]][source_coordinates[1]];
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 				
-
+				System.out.println("BEFORE");
+				System.out.println(whiteKing);
+				System.out.println(whiteKing_coordinates[0]+" "+whiteKing_coordinates[1]);
 				boolean moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, promotionPiece,chessBoard);
 				if (moveIsValid) {
 					source_piece.move(source_coordinates, source_piece, dest_coordinates, promotionPiece,chessBoard);
@@ -97,6 +99,12 @@ public class Chess {
 							blackKing_coordinates[0] = dest_coordinates[0]; blackKing_coordinates[1] = dest_coordinates[1];
 						}
 					}
+					chessBoard.drawBoard();
+
+					System.out.println("AFTER");
+					System.out.println(whiteKing);
+					System.out.println(whiteKing_coordinates[0]+" "+whiteKing_coordinates[1]);
+
 					//if it's white's turn and white's move puts the whiteKing in check it is invalid
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);

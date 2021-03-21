@@ -348,8 +348,10 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 				chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]-1] = rook;
 				chessBoard.getBoard()[corner[0]][corner[1]] = null;
 			}
+			
+			isCastleMove = false;
 		}
-		else { //standard move
+		else { //standard move			
 			chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 			chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
 		}
