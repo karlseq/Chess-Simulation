@@ -31,14 +31,12 @@ public class Board {
 		board[7][2] = new Bishop(white);
 		board[7][3] = new Queen(white);
 		board[7][4] = new King(white);
-		//board[7][5] = new Bishop(white);
-		//board[7][6] = new Knight(white);
+		board[7][5] = new Bishop(white);
+		board[7][6] = new Knight(white);
 		board[7][7] = new Rook(white);
 		for (int col=0; col<8; col++) {
 			board[6][col] = new Pawn(white);
 		}
-		board[6][4] = null;
-		board[5][3] = new Queen(black);
 	}
 	
 	public void drawBoard() {

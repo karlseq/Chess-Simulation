@@ -29,7 +29,7 @@ public class Pawn extends ChessPiece {
 	boolean isEPMove = false; 
 	
 	/**
-	 * Creates a Pawn chess piece
+	 * Creates a Pawn chess piece of the given color
 	 * 
 	 * @param color the color of the Pawn piece (black or white)
 	 */

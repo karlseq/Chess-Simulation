@@ -2,7 +2,20 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a Queen chess piece
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
+
 public class Queen extends ChessPiece implements DiagonalMover, ForwardMover{
+	
+	/**
+	 * Creates a Queen chess piece of the given color
+	 * 
+	 * @param color the color of the Queen piece (black or white)
+	 */
 	public Queen(Colors color) {
 		super(color);
 	}
@@ -19,7 +32,6 @@ public class Queen extends ChessPiece implements DiagonalMover, ForwardMover{
 
 	@Override
 	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {
-		if (!isInBoard(c1[0],c1[1],c2[0],c2[1])) return false; //makes sure the move is within the bounds of the board
 		if(checkDiagonal(c1, cp1, c2, cp2, chessBoard)) {
 			return true;
 		}
@@ -27,14 +39,6 @@ public class Queen extends ChessPiece implements DiagonalMover, ForwardMover{
 			return true;
 		}
 		return false;
-	}
-	
-	//checks if any of the row, col indices are out of the bounds of the board
-	private boolean isInBoard(int c1x, int c1y, int c2x, int c2y) {
-		if ((c1x<0||c1x>7) || (c1y<0||c1y>7) || (c2x<0||c2x>7) || (c2y<0||c2y>7)) {
-			return false;
-		}
-		return true;
 	}
 	
 	@Override

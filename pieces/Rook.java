@@ -12,7 +12,7 @@ import chess.Board;
 public class Rook extends ChessPiece implements ForwardMover {
 	
 	/**
-	 * Creates a Rook chess piece
+	 * Creates a Rook chess piece of the given color
 	 * 
 	 * @param color the color of the Rook piece (black or white) 
 	 */
@@ -25,7 +25,6 @@ public class Rook extends ChessPiece implements ForwardMover {
 	public String toString() {
 		return super.toString() + "R";
 	}
-
 
 	@Override
 	public boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2, char promotionPiece, Board chessBoard) {

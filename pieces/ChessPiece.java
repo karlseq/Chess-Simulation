@@ -2,12 +2,35 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a generic chess piece
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
+
 public abstract class ChessPiece {
 	 
-	public Colors color; // name of the piece as shown on the board (e.g. "wp" for white pawn)
-	boolean isFirstMove = true; //only for piece, Rook, and Pawn
-	boolean justMovedTwice = false; //only for Pawns - specifically for en passant
+	/**
+	 * The color of the chess piece
+	 */
+	public Colors color; 
 	
+	/**
+	 * Determines if it's the piece's first move (only for King, Rook, and Pawn)
+	 */
+	boolean isFirstMove = true;
+	
+	/**
+	 * Determines if the Pawn just moved two spaces as its first move (only for pawns, specifically for en passant)
+	 */
+	boolean justMovedTwice = false;
+	
+	/**
+	 * Creates a generic chess piece of the given color
+	 * 
+	 * @param c the color of the chess piece to be created
+	 */
 	public ChessPiece(Colors c) {
 		this.color = c;
 	}
@@ -18,6 +41,9 @@ public abstract class ChessPiece {
 	// destRow and destCol aret he indexes corresponding to where you wanna move e3 to, in this case e5
 	// public abstract void move(int srcRow,int srcCol,int destRow,int destCol);
 	
+	/**
+	 * Name of the piece (color + name -> eg. "wp" = white pawn)
+	 */
 	public String toString() {
 		if(color.equals(Colors.BLACK)) {
 			return "b";
@@ -25,11 +51,43 @@ public abstract class ChessPiece {
 		return "w";
 	}
 	
-	//promotion piece only used in Pawn.java
+	
+	/**
+	 * Determines if the move the user wants to make is legal or not
+	 * 
+	 * @param c1 coordinates of the source piece
+	 * @param cp1 the source piece
+	 * @param c2 coordinates of the destination
+	 * @param cp2 the piece on the dest coordinates (if any)
+	 * @param promotionPiece what piece the Pawn should be promoted to (only for Pawns)
+	 * @param chessBoard actual chess board
+	 * @return returns true if the user inputed a legal move
+	 */
 	public abstract boolean isValidMove(int[] c1, ChessPiece cp1, int[] c2, ChessPiece cp2,char promotionPiece,Board chessBoard);
+	
+	
+	/**
+	 * Moves the source piece to the destination square
+	 * 
+	 * @param src_coordinates coordinates of the source piece
+	 * @param cp1 the source piece
+	 * @param dest_coordinates coordinates of the destination square
+	 * @param promotionPiece what piece the Pawn should be promoted to (only for Pawns)
+	 * @param chessBoard actual chess board
+	 */
 	public abstract void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard);
 	
 	//this method checks if the given piece can be killed or empty block can be occupied 
+	/**
+	 * Checks if the given piece can be killed or empty block can be occupied
+	 * 
+	 * @param piece_coordinates coordinates of the given piece
+	 * @param piece piece that is being checked
+	 * @param promotionPiece what piece the Pawn should be promoted to (not useful for this method)
+	 * @param threatPiece piece that can kill the given piece (initially null)
+	 * @param chessBoard actual chess board
+	 * @return coordinates of a threat piece that can kill the given piece
+	 */
 	public int[] canBeKilled(int[] piece_coordinates, ChessPiece piece, char promotionPiece, ChessPiece threatPiece, Board chessBoard) {
 		
 		/* How does this algorithm work?
