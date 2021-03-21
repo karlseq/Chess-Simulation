@@ -2,8 +2,20 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a Rook chess piece
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
+
 public class Rook extends ChessPiece implements ForwardMover {
 	
+	/**
+	 * Creates a Rook chess piece
+	 * 
+	 * @param color the color of the Rook piece (black or white) 
+	 */
 	public Rook(Colors color) {
 		super(color);
 	}
@@ -24,5 +36,6 @@ public class Rook extends ChessPiece implements ForwardMover {
 	public void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard) {
 		chessBoard.getBoard()[dest_coordinates[0]][dest_coordinates[1]] = cp1;
 		chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
+		cp1.isFirstMove = false;
 	}
 }

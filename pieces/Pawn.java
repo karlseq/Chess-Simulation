@@ -2,16 +2,37 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a Pawn chess piece
+ * 
+ * @author Ibrahim Khajanchi
+ * @author Karl Sequeira
+ */
+
 public class Pawn extends ChessPiece {
 	
-	/* Tells which direction the pawn is moving "forward" through the board:
+	/**
+	 * Tells which direction the pawn is moving "forward" through the board:
 	 * 	If it's a black pawn, it moves down the board
-	 *	If it's a white pawn, it moves up the board
+	 *  If it's a white pawn, it moves up the board
 	 */
 	boolean downOrientation = false;
-	boolean justMovedTwice = false; //tells if the pawn had just moved two spaces as its first move
-	boolean isEPMove = false; //tells if the move is an en passant move
 	
+	/**
+	 * tells if the Pawn had just moved two spaces as its first move
+	 */
+	boolean justMovedTwice = false;
+	
+	/**
+	 * tells if the move is an en passant move
+	 */
+	boolean isEPMove = false; 
+	
+	/**
+	 * Creates a Pawn chess piece
+	 * 
+	 * @param color the color of the Pawn piece (black or white)
+	 */
 	public Pawn(Colors color) {
 		super(color);
 	}
@@ -163,6 +184,15 @@ public class Pawn extends ChessPiece {
 		return true;
 	}
 	
+	/**
+	 * Determines if both the src and dest coordinates are within the bounds of the chess board
+	 * 
+	 * @param c1x row index of the src piece
+	 * @param c1y column index of the src piece
+	 * @param c2x row index of the destination
+	 * @param c2y column index of the destination
+	 * @return returns true if both src and dest coordinates are within the bounds of the chess board
+	 */
 	private boolean isInBoard(int c1x, int c1y, int c2x, int c2y) {
 		if ((c1x<0||c1x>7) || (c1y<0||c1y>7) || (c2x<0||c2x>7) || (c2y<0||c2y>7)) {
 			return false;
@@ -170,8 +200,12 @@ public class Pawn extends ChessPiece {
 		return true;
 	}
 	
-	//sets each pawn of the opposite color justMovedTwice's field to false
-	//needed for en passant
+	/**
+	 * Sets each pawn of the given color justMovedTwice's field to false (needed for en passant)
+	 * 
+	 * @param color which color piece to look for while traversing through the chess board
+	 * @param chessBoard actual chess board
+	 */
 	private void setJMT(Colors color, Board chessBoard) {
 		for (int i=0; i<7; i++) {
 			for (int j=0; j<7; j++) {
