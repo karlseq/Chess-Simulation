@@ -50,6 +50,7 @@ public class Chess {
 			}
 			
 			String move = reader.readLine();
+			move = move.trim(); //removes leading and trailing spaces
 			
 			if (draw) break; //end the game
 			
