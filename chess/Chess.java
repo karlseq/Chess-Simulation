@@ -157,7 +157,7 @@ public class Chess {
 
 							}
 						}
-						if(game && check) System.out.println("check");
+						if(game && check) System.out.println("Check");
 						shouldDisplay = true;
 					}
 				}

@@ -223,7 +223,6 @@ public class Pawn extends ChessPiece {
 		chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]] = null;
 		cp1.isFirstMove = false;
 		if (this.isEPMove) { //have to kill the pawn of the opposite color
-			System.out.println("isEPMove was triggered");
 			if (dest_coordinates[1]-src_coordinates[1]==-1) { //kill pawn that was to the left of the source piece
 				chessBoard.getBoard()[src_coordinates[0]][src_coordinates[1]-1] = null;
 			}

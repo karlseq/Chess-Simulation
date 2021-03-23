@@ -1,6 +1,7 @@
 package chess;
 
 import pieces.ChessPiece;
+import pieces.Colors;
 import pieces.King;
 
 /**
@@ -65,7 +66,12 @@ public class Utility {
 		if(king.checkForCheckMate(king_coordinates, king, chessBoard, threat_coordinates)) {
 			chessBoard.drawBoard();
 			System.out.println("Checkmate");
-			System.out.println(king.color.toString().toLowerCase() + " wins");
+			if (king.color.equals(Colors.BLACK)) {
+				System.out.println("White wins");
+			}
+			else {
+				System.out.println("Black wins");
+			}
 			return game=false;
 		}
 		return game=true;
