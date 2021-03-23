@@ -77,7 +77,6 @@ public abstract class ChessPiece {
 	 */
 	public abstract void move(int[] src_coordinates, ChessPiece cp1, int[] dest_coordinates, char promotionPiece,Board chessBoard);
 	
-	//this method checks if the given piece can be killed or empty block can be occupied 
 	/**
 	 * Checks if the given piece can be killed or empty block can be occupied
 	 * 
@@ -100,7 +99,6 @@ public abstract class ChessPiece {
 		 * 
 		 * 
 		 * 
-		 * make all of this a lambda?? or use interfaces
 		 */
 		
 		boolean isThreat = threatPiece != null;
@@ -191,9 +189,17 @@ public abstract class ChessPiece {
 		currentPiece = null;
 		while((row <= 7 && col >=0) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece != threatPiece && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
-					promotionPiece,chessBoard)) {
-				return new int[] {row, col};
+			if(!isThreat) {
+				if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
+			}
+			else {
+				if(currentPiece != null && currentPiece != threatPiece && currentPiece.color != threatPiece.color && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
 			}
 			row++; col--;
 		}
@@ -203,9 +209,17 @@ public abstract class ChessPiece {
 		currentPiece = null;
 		while((col <= 7 && row <=7) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece != threatPiece && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
-					promotionPiece,chessBoard)) {
-				return new int[] {row, col};
+			if(!isThreat) {
+				if(currentPiece != null &&  currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
+			}
+			else {
+				if(currentPiece != null && currentPiece != threatPiece && currentPiece.color != threatPiece.color && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
 			}
 			row++; col++;
 		}
@@ -215,9 +229,17 @@ public abstract class ChessPiece {
 		currentPiece = null;
 		while((row >= 0 && col >=0) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece != threatPiece && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
-					promotionPiece,chessBoard)) {
-				return new int[] {row, col};
+			if(!isThreat) {
+				if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
+			}
+			else {
+				if(currentPiece != null && currentPiece != threatPiece && currentPiece.color != threatPiece.color && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
 			}
 			row--; col--;
 		}
@@ -227,9 +249,17 @@ public abstract class ChessPiece {
 		currentPiece = null;
 		while((row >=0 && col <= 7) && currentPiece == null) {
 			currentPiece = chessBoard.getBoard()[row][col];
-			if(currentPiece != null && currentPiece != threatPiece && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
-					promotionPiece,chessBoard)) {
-				return new int[] {row, col};
+			if(!isThreat) {
+				if(currentPiece != null && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
+			}
+			else {
+				if(currentPiece != null && currentPiece != threatPiece && currentPiece.color != threatPiece.color && currentPiece.isValidMove(new int[] {row, col}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+					return new int[] {row, col};
+				}
 			}
 			row--; col++;
 		}
@@ -243,15 +273,30 @@ public abstract class ChessPiece {
 			col = piece_coordinates[1]-1;//left
 			if(col >= 0) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
 				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
+				}
+
 			}
 			col = piece_coordinates[1] + 1; //right
 			if(col <= 7) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 		}
@@ -261,15 +306,29 @@ public abstract class ChessPiece {
 			col = piece_coordinates[1]-1;//left
 			if(col >= 0) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 			col = piece_coordinates[1] + 1; //right
 			if(col <= 7) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 
@@ -281,16 +340,30 @@ public abstract class ChessPiece {
 			col = piece_coordinates[1] - 2;
 			if(col >= 0) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 
 			col = piece_coordinates[1] + 2; //right
 			if(col <= 7) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 		}
@@ -301,16 +374,30 @@ public abstract class ChessPiece {
 			col = piece_coordinates[1] - 2; // left
 			if(col >= 0) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 
 			col = piece_coordinates[1] + 2; //right
 			if(col <= 7) {
 				currentPiece = chessBoard.getBoard()[row][col];
-				if(currentPiece instanceof Knight && (piece == null || currentPiece.color != piece.color)) {
-					return new int[] {row, col};
+				if(!isThreat) {
+					if(currentPiece instanceof Knight && currentPiece.color != piece.color) {
+						return new int[] {row, col};
+					}	
+				}
+				else {
+					if(currentPiece instanceof Knight && currentPiece!=threatPiece && currentPiece.color != threatPiece.color) {
+						return new int[] {row, col};
+					}
 				}
 			}
 

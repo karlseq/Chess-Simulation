@@ -30,10 +30,10 @@ public class Chess {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
 		King blackKing = (King) chessBoard.board[0][4];
-		King whiteKing = (King) chessBoard.board[7][4];
+		King whiteKing = (King) chessBoard.board[7][7];
 		
 		int[] blackKing_coordinates = {0, 4};
-		int[] whiteKing_coordinates = {7,4};
+		int[] whiteKing_coordinates = {7,7};
 		
 		
 		while(game) {
@@ -107,7 +107,6 @@ public class Chess {
 							blackKing_coordinates[0] = dest_coordinates[0]; blackKing_coordinates[1] = dest_coordinates[1];
 						}
 					}
-					chessBoard.drawBoard();
 
 					//if it's white's turn and white's move puts the whiteKing in check it is invalid
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard) != null) {
@@ -125,14 +124,16 @@ public class Chess {
 							threat_coordinates = whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard);
 							if(threat_coordinates != null) {
 								check = true;
-								game = Utility.handleLegalCheck(whiteKing_coordinates, threat_coordinates, whiteKing, chessBoard, check, game);	
+								game = Utility.handleLegalCheck(whiteKing_coordinates, threat_coordinates, whiteKing, chessBoard, game);	
+
 							}
 						}
 						else if(!whiteMove) {
 							threat_coordinates = blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard);
 							if(threat_coordinates != null) {
 								check = true;
-								game = Utility.handleLegalCheck(blackKing_coordinates, threat_coordinates, blackKing, chessBoard, check, game);	
+								game = Utility.handleLegalCheck(blackKing_coordinates, threat_coordinates, blackKing, chessBoard, game);
+
 							}
 						}
 						if(game && check) System.out.println("check");

@@ -147,6 +147,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 		}
 		else if(canBeKilled(threat_coordinates, threatPiece, 'A', null, chessBoard) != null) return false;
 		
+
 		//check if king can flee
 		int row = king_coordinates[0], col = king_coordinates[1];
 		chessBoard.getBoard()[row][col] = null;
@@ -192,7 +193,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 				return false;
 			}
 		}
-		
+
 		/* check if it can be saved*/
 		
 		//threat coordinate is above the king
@@ -230,6 +231,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 				}
 			}
 		}
+		
 		
 		//threat coordinate horizontally on right
 		if(threat_coordinates[0] == king_coordinates[0] && threat_coordinates[1] > king_coordinates[1]) {
@@ -287,7 +289,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 			}
 			
 		}
-			
+		
 		/* castling move */
 		//check if castling possible
 			//if so return false
@@ -295,45 +297,54 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 			if (king.color.equals(Colors.BLACK)) {
 				//checks if the black king can even do a castling move with the left rook
 				if (king.isValidMove(king_coordinates, (ChessPiece) king, new int[] {0,2}, chessBoard.getBoard()[0][2],'A', chessBoard)) {
+					ChessPiece temp = chessBoard.getBoard()[0][2];
 					chessBoard.getBoard()[0][2] = king; //put king in the new spot, not sure if isInCheck needs the king to be on the square
 					if (king.isInCheck(new int[] {0, 2}, king,chessBoard)==null) { //means black king can escape check by castling to left
 						chessBoard.getBoard()[0][2] = null;
 						chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 						return false;
 					}
+					chessBoard.getBoard()[0][2] = temp;
 				}
 				//checks if the black king can even do a castling move with the right rook
 				else if (king.isValidMove(king_coordinates, (ChessPiece) king, new int[] {0,6}, chessBoard.getBoard()[0][6],'A', chessBoard)) {
+					ChessPiece temp = chessBoard.getBoard()[0][6];
 					chessBoard.getBoard()[0][6] = king;
 					if (king.isInCheck(new int[] {0, 6},king,chessBoard)==null) { //means black king can escape check by castling to right
 						chessBoard.getBoard()[0][6] = null;
 						chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 						return false;
 					}
+					chessBoard.getBoard()[0][6] = temp;
 				}
 			}
 			else {
 				//checks if the white king can even do a castling move with the left rook
 				if (king.isValidMove(king_coordinates, (ChessPiece) king, new int[] {7,2}, chessBoard.getBoard()[7][2],'A', chessBoard)) {
+					ChessPiece temp = chessBoard.getBoard()[7][2];
 					chessBoard.getBoard()[7][2] = king;
 					if (king.isInCheck(new int[] {7, 2},king,chessBoard)==null) { //means white king can escape check by castling to left
 						chessBoard.getBoard()[7][2] = null;
 						chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 						return false;
 					}
+					chessBoard.getBoard()[7][2] = temp;
+
 				}
 				//checks if the white king can even do a castling move with the right rook
 				else if (king.isValidMove(king_coordinates, (ChessPiece) king, new int[] {7,6}, chessBoard.getBoard()[7][2],'A', chessBoard)) {
+					ChessPiece temp = chessBoard.getBoard()[7][6];
 					chessBoard.getBoard()[7][6] = king;
 					if (king.isInCheck(new int[] {7, 6},king,chessBoard)==null) { //means white king can escape check by castling to right
 						chessBoard.getBoard()[7][6] = null;
 						chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 						return false;
 					}
+					chessBoard.getBoard()[7][6] = temp;
+
 				}
 			}
 		}
-		
 		chessBoard.getBoard()[king_coordinates[0]][king_coordinates[1]] = king;
 		return true;
 	}

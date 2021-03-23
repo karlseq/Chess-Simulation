@@ -2,6 +2,12 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Represents a Knight chess piece
+ * 
+ * @author ibrahimkhajanchi
+ * @author Karl Sequeira
+ */
 public class Knight extends ChessPiece {
 	public Knight(Colors color) {
 		super(color);
