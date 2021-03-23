@@ -35,10 +35,14 @@ public class Chess {
 		int[] blackKing_coordinates = {0, 4};
 		int[] whiteKing_coordinates = {7,7};
 		
-		
+		boolean shouldDisplay = true; //board should NOT be displayed if the user inputed an illegal move
 		while(game) {
 			if(draw) game = false;
-			else chessBoard.drawBoard();
+			else {
+				if (shouldDisplay) {
+					chessBoard.drawBoard();
+				}
+			}
 			
 			if(whiteMove) {
 				System.out.print("White's Move: ");
@@ -50,6 +54,7 @@ public class Chess {
 			}
 			
 			String move = reader.readLine();
+			move = move.trim(); //removes leading and trailing spaces
 			
 			if (draw) break; //end the game
 			
@@ -111,10 +116,12 @@ public class Chess {
 					//if it's white's turn and white's move puts the whiteKing in check it is invalid
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
+						shouldDisplay = false;
 					}
 					//if it's black's turn and black's move puts the blackKing in check it is invalid
 					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, blackKing_coordinates, blackKing, chessBoard, whiteMove);
+						shouldDisplay = false;
 					}
 					//check if opposite king is put in check
 					else {
@@ -137,12 +144,13 @@ public class Chess {
 							}
 						}
 						if(game && check) System.out.println("check");
-
+						shouldDisplay = true;
 					}
 				}
 				else {
 					System.out.println("Illegal move, try again");
 					whiteMove = !whiteMove;
+					shouldDisplay = false;
 				}
 					
 			}
