@@ -39,7 +39,6 @@ public class Board {
 		
 
 		//adds white pieces to board
-		
 		board[7][0] = new Rook(white);
 		board[7][1] = new Knight(white);
 		board[7][2] = new Bishop(white);

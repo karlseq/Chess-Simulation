@@ -103,6 +103,7 @@ public abstract class ChessPiece {
 		
 		boolean isThreat = threatPiece != null;
 		
+		
 		//check left //good
 		int i = piece_coordinates[1] - 1;
 		ChessPiece currentPiece = null;
@@ -132,7 +133,13 @@ public abstract class ChessPiece {
 				if(currentPiece != null && currentPiece.isValidMove(new int[] {piece_coordinates[0], i}, currentPiece, piece_coordinates, piece, 
 						promotionPiece,chessBoard)) {
 					return new int[] {piece_coordinates[0], i};
-				}	
+				}
+				/*if (currentPiece != null) {
+					if (currentPiece.isValidMove(new int[] {piece_coordinates[0], i}, currentPiece, piece_coordinates, piece, 
+						promotionPiece,chessBoard)) {
+						return new int[] {piece_coordinates[0], i};
+					}
+				}*/
 			}
 			else {
 				if(currentPiece != null && currentPiece != threatPiece && currentPiece.color != threatPiece.color && currentPiece.isValidMove(new int[] {piece_coordinates[0], i}, currentPiece, piece_coordinates, piece, 
