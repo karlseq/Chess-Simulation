@@ -19,12 +19,12 @@ public abstract class ChessPiece {
 	/**
 	 * Determines if it's the piece's first move (only for King, Rook, and Pawn)
 	 */
-	boolean isFirstMove = true;
+	public boolean isFirstMove = true;
 	
 	/**
 	 * Determines if the Pawn just moved two spaces as its first move (only for pawns, specifically for en passant)
 	 */
-	boolean justMovedTwice = false;
+	public boolean justMovedTwice = false;
 	
 	/**
 	 * Creates a generic chess piece of the given color
@@ -42,7 +42,7 @@ public abstract class ChessPiece {
 	// public abstract void move(int srcRow,int srcCol,int destRow,int destCol);
 	
 	/**
-	 * Name of the piece (color + name -> eg. "wp" = white pawn)
+	 * Name of the piece (color + name)
 	 */
 	public String toString() {
 		if(color.equals(Colors.BLACK)) {

@@ -15,7 +15,7 @@ public class Utility {
 	 * This method takes in the user input from command line and returns row and column to
 	 * be used for the chess-board
 	 * 
-	 * @param string form of user input
+	 * @param block string form of user input
 	 * @return the row and column of the input in integer form
 	 */
 	public static int[] getRowCol(String block) {
@@ -58,7 +58,7 @@ public class Utility {
 	 * @param threat_coordinates the coordinates of the piece that's putting the king in check
 	 * @param king the king piece
 	 * @param chessBoard the board object
-	 * @param game 
+	 * @param game whether the game is still being played or not
 	 * @return the boolean game which tells you if game is over or not
 	 */
 	public static boolean handleLegalCheck(int[] king_coordinates, int[] threat_coordinates, King king, Board chessBoard, Boolean game) {

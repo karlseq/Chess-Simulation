@@ -14,7 +14,7 @@ public class King extends ChessPiece implements ForwardMover, DiagonalMover{
 	/**
 	 * Tells if the move the user wants to make is a castling move
 	 */
-	boolean isCastleMove = false;
+	public boolean isCastleMove = false;
 	
 	/**
 	 * Creates a King chess piece of the given color

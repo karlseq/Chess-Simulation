@@ -93,8 +93,16 @@ public class Chess {
 				ChessPiece dest_piece = chessBoard.board[dest_coordinates[0]][dest_coordinates[1]];
 				
 				boolean moveIsValid;
+				boolean ogIFM = true; //arbitrary- might be overwritten
+				boolean ogJMT = false; //arbitrary- might be overwritten
 				if (source_piece==null) moveIsValid = false; //can't move a null piece (empty square)
 				else {
+					//saving state of src piece's fields
+					ogIFM = source_piece.isFirstMove; //src piece's isFirstMove state before moving
+					ogJMT = source_piece.justMovedTwice; //src piece's justMovedTwice state before moving
+					/*if (source_piece instanceof King) {
+						boolean ogICM = (King)source_piece.
+					}*/
 					moveIsValid = source_piece.isValidMove(source_coordinates, source_piece, dest_coordinates, dest_piece, promotionPiece,chessBoard);
 				}
 				if (moveIsValid) {
@@ -117,11 +125,17 @@ public class Chess {
 					if(!whiteMove && whiteKing.isInCheck(whiteKing_coordinates, whiteKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, whiteKing_coordinates, whiteKing, chessBoard, whiteMove);
 						shouldDisplay = false;
+						//reversing state of src piece's fields
+						source_piece.isFirstMove = ogIFM;
+						source_piece.justMovedTwice = ogJMT;
 					}
 					//if it's black's turn and black's move puts the blackKing in check it is invalid
 					else if(whiteMove && blackKing.isInCheck(blackKing_coordinates, blackKing, chessBoard) != null) {
 						whiteMove = Utility.handleIllegalCheck(source_coordinates, dest_coordinates, source_piece, dest_piece, blackKing_coordinates, blackKing, chessBoard, whiteMove);
 						shouldDisplay = false;
+						//reversing state of src piece's fields
+						source_piece.isFirstMove = ogIFM;
+						source_piece.justMovedTwice = ogJMT;
 					}
 					//check if opposite king is put in check
 					else {
