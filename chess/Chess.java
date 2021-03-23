@@ -30,10 +30,10 @@ public class Chess {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
 		King blackKing = (King) chessBoard.board[0][4];
-		King whiteKing = (King) chessBoard.board[7][7];
+		King whiteKing = (King) chessBoard.board[7][4];
 		
 		int[] blackKing_coordinates = {0, 4};
-		int[] whiteKing_coordinates = {7,7};
+		int[] whiteKing_coordinates = {7,4};
 		
 		boolean shouldDisplay = true; //board should NOT be displayed if the user inputed an illegal move
 		while(game) {
