@@ -1,4 +1,5 @@
-This project simulates a chess game in the terminal. All basic rules of chess, each piece's specific moves, and even some special moves like "en passant" and "castling" are accounted for
+This project simulates a chess game in the terminal. 
+All basic rules of chess, each piece's specific moves, and even some special moves like "en passant" and "castling" are accounted for
 
 Tools used:
   - Java
